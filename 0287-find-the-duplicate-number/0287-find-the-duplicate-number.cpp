@@ -2,40 +2,39 @@ class Solution {
 public:
     int findDuplicate(vector<int>& nums) 
     {
-        int n = nums.size() -1;
-        vector<int> freq(n+1,0);
+        int tortoise = nums[0];
+        int hare = nums[0];
 
-        for(int i = 0; i < nums.size(); i++)
+        do{
+            tortoise = nums[tortoise];
+            hare = nums[nums[hare]];
+        }while(tortoise != hare);
+
+        tortoise = nums[0];
+        while(tortoise != hare)
         {
-            if(freq[nums[i]] == 0)
-            {
-                freq[nums[i]]++;
-            }
-            else
-            {
-                return nums[i];
-            }
-
+            tortoise = nums[tortoise];
+            hare = nums[hare];
         }
-        // int slow = nums[0];
-        // int fast = nums[0];
 
-        // do
+        return hare;
+
+
+        // int n = nums.size() -1;
+        // vector<int> freq(n+1,0);
+
+        // for(int i = 0; i < nums.size(); i++)
         // {
-        //     slow = nums[slow];
-        //     fast = nums[nums[fast]];
-        // }    
-        // while ( slow != fast);
+        //     if(freq[nums[i]] == 0)
+        //     {
+        //         freq[nums[i]]++;
+        //     }
+        //     else
+        //     {
+        //         return nums[i];
+        //     }
 
-        // slow = nums[0];
-
-        // while(slow != fast)
-        // {
-        //     slow = nums[slow];
-        //     fast = nums[fast];
         // }
-
-        // return slow;
-        return 0;
+        
     }
 };
