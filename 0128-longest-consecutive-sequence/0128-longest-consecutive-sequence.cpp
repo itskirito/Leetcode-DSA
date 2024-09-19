@@ -5,28 +5,29 @@ public:
         if(nums.empty()) return 0;
 
         int n = nums.size();
-        sort(nums.begin(), nums.end());
-
         int max_length = 1;
-        int count = 1;
-
-        for(int i = 1; i < n; i++)
+        
+        unordered_set<int> st;
+        for(int i = 0; i < n; i++)
         {
-            if(nums[i] == nums[i-1] + 1)
-            {
-                count++;
-            }
-            else if(nums[i] == nums[i-1])
-            {
-                count = count;
-            }
-            else
-            {
-                count = 1;
-            }
+            st.insert(nums[i]);
+        }
 
-            max_length = max(count, max_length);
-        } 
+        for(auto it : st)
+        {
+            if(st.find(it - 1) == st.end())
+            {
+                int count = 1;
+                int x  = it;
+                while(st.find(x+1) != st.end())
+                {
+                    x = x +1;
+                    count = count +1;
+                }
+
+                max_length = max(max_length, count);
+            }
+        }
 
         return max_length;   
     }
