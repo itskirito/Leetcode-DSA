@@ -1,32 +1,31 @@
 class Solution {
 public:
-    bool isPal(string&str, int l, int r)
+    bool alphanumeric(char c)
     {
-        if(l >= r)
+        if(c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' )
         {
             return true;
-        }
-
-        if(str[l] == str[r])
-        {
-            return isPal(str, l+1, r-1);
         }
 
         return false;
     } 
     bool isPalindrome(string s) {
-        string newStr;
 
-        for(auto c : s)
-        {
-            if(isalnum(c))
-                newStr += tolower(c);
-        }
-
-        int n = newStr.size();
+        int n = s.size();
         int l = 0;
         int r = n-1;
 
-        return isPal(newStr, l, r);
+        while(l <= r)
+        {
+            while (l < r && !alphanumeric(s[l])) l++;
+            while (r > l && !alphanumeric(s[r])) r--;
+
+            if(tolower(s[l]) != tolower(s[r])) return false;
+
+            l++;
+            r--;
+        }
+
+        return true;
     }
 };
